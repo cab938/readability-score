@@ -28,4 +28,7 @@ class FleschKincaid:
         Calculates US grade as a float from the available
         text scores.
         """
-        self.us_grade = (0.39 * self.scores['sentlen_average']) + (11.8 * self.scores['wordlen_average']) - 15.59
+        if (self.scores['sentlen_average'] == None) or (self.scores['wordlen_average'] == None):
+          self.us_grade = None
+        else:
+          self.us_grade = (0.39 * self.scores['sentlen_average']) + (11.8 * self.scores['wordlen_average']) - 15.59

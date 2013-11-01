@@ -30,7 +30,7 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
       hyphenator = Hyphenator(locale)
     else:
       hyphenator = Hyphenator("/usr/share/myspell/hyph_" + locale + ".dic")
-	    
+      
     scores = {
               'sent_count': 0,              # nr of sentences
               'word_count': 0,              # nr of words
@@ -64,10 +64,26 @@ def getTextScores(text, locale='en_GB', simplewordlist=[]):
                     scores['simpleword_count'] = scores['simpleword_count'] + 1
 
 
-    scores['sentlen_average'] = scores['word_count'] / scores['sent_count']
-    scores['wordlen_average'] = scores['syll_count'] / scores['word_count']
-    scores['wordletter_average'] = scores['letter_count'] / scores['word_count']
-    scores['wordsent_average'] = scores['sent_count'] / scores['word_count']
+    try:
+      scores['sentlen_average'] = scores['word_count'] / scores['sent_count']
+    except:
+      scores['sentlen_average'] = None
+    
+    try:
+      scores['wordlen_average'] = scores['syll_count'] / scores['word_count']
+    except:
+      scores['wordlen_average'] = None
+    
+    try:
+      scores['wordletter_average'] = scores['letter_count'] / scores['word_count']
+    except:
+      scores['wordletter_average'] = None
+    
+    try:
+      scores['wordsent_average'] = scores['sent_count'] / scores['word_count']
+    except:
+      scores['wordsent_average'] = None
+      
     return scores
 
 
@@ -76,4 +92,6 @@ def getMinimumAgeFromUsGrade(us_grade):
     The age has a linear relation with the grade.
     http://en.wikipedia.org/wiki/Education_in_the_United_States#School_grades
     """
+    if (us_grade == None):
+      return None
     return int(round(us_grade + 5))
